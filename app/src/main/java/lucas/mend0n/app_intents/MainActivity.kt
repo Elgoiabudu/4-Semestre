@@ -22,11 +22,27 @@ class MainActivity : AppCompatActivity() {
         btWeb = findViewById(R.id.btWeb)
         btContato = findViewById(R.id.btContato)
 
-        btWeb.setOnClickListener { AbrirSite() }
+        btWeb.setOnClickListener { abrirSite() }
+        btMapa.setOnClickListener { abrirMapa() }
+        btContato.setOnClickListener { abrirContato() }
     }
 
-    fun AbrirSite(){
+    private fun abrirMapa(){
+        var uri:Uri = Uri.parse("geo:-23.66341857070195, -46.45985658227145?z=17")
+
+        var intent:Intent = Intent(Intent.ACTION_VIEW, uri)
+        startActivity(intent)
+    }
+
+    private fun abrirSite(){
         var uri:Uri = Uri.parse("https://www.google.com.br")
+
+        var intent:Intent = Intent(Intent.ACTION_VIEW, uri)
+        startActivity(intent)
+    }
+
+    private fun abrirContato(){
+        var uri:Uri = Uri.parse("content://contacts/people")
 
         var intent:Intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
