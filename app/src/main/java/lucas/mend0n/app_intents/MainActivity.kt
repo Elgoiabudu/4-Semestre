@@ -25,6 +25,13 @@ class MainActivity : AppCompatActivity() {
         btWeb.setOnClickListener { abrirSite() }
         btMapa.setOnClickListener { abrirMapa() }
         btContato.setOnClickListener { abrirContato() }
+        btNovatela.setOnClickListener { abrirTela2() }
+    }
+
+    private fun abrirTela2() {
+        //Gambiarra para abrir (feita pelo professor)
+        var intent:Intent = Intent(this, Tela2Activity::class.java)
+        startActivity(intent)
     }
 
     private fun abrirMapa(){
@@ -42,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun abrirContato(){
-        var uri:Uri = Uri.parse("content://contacts/people")
+        var uri:Uri = Uri.parse("content://contacts/people/1")
 
         var intent:Intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
