@@ -9,20 +9,37 @@ import androidx.recyclerview.widget.RecyclerView
 import com.william.applista.R
 import com.william.applista.models.Contato
 
+
+
 class ListaContatosAdapter(private val contatos: List<Contato>) :
         RecyclerView.Adapter<ListaContatosAdapter.ContatoViewHolder>(){
-            class ContatoViewHolder(v: View) : RecyclerView.ViewHolder(v){
-                //... TextViews para telefone, endereço...
-                var nome: TextView
-                var telefone: TextView
-                var foto: ImageView
 
-                init{
-                    nome = v.findViewById(R.id.txtNome)
-                    telefone = v.findViewById(R.id.txtTelefone)
-                    foto = v.findViewById(R.id.imgFoto)
-                }
+    class ContatoViewHolder(v: View) : RecyclerView.ViewHolder(v){
+        //... TextViews para telefone, endereço...
+        var nome: TextView
+        var telefone: TextView
+        var foto: ImageView
+
+        init{
+            nome = v.findViewById(R.id.txtNome)
+            telefone = v.findViewById(R.id.txtTelefone)
+            foto = v.findViewById(R.id.imgFoto)
+
+            v.setOnLongClickListener {
+                position = adapterPosition
+                return@setOnLongClickListener false;
             }
+
+            v.setOnCreateContextMenuListener { contextMenu, view, contextMenuInfo ->  {
+
+            }}
+        }
+
+        fun setPosition(position:Int){
+            this.position = position
+        }
+
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContatoViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_contato, parent, false)
@@ -36,7 +53,6 @@ class ListaContatosAdapter(private val contatos: List<Contato>) :
 
         nome.setText(contatos.get(position).nome)
         telefone.setText(contatos.get(position).telefone)
-
     }
 
     override fun getItemCount(): Int {
