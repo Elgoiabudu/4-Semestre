@@ -34,5 +34,12 @@
             android:text="(11)96666-6656"
             android:textSize="16sp"
             ></TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtEmail"
+            android:text="Email do Contato"
+            android:textSize="20sp"
+            ></TextView>
     </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

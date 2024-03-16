@@ -1,8 +1,7 @@
 package com.william.applista.adapters
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -14,29 +13,27 @@ import com.william.applista.models.Contato
 class ListaContatosAdapter(private val contatos: List<Contato>) :
         RecyclerView.Adapter<ListaContatosAdapter.ContatoViewHolder>(){
 
+    var posicao_clicada:Int = -1
+
     class ContatoViewHolder(v: View) : RecyclerView.ViewHolder(v){
         //... TextViews para telefone, endereço...
         var nome: TextView
         var telefone: TextView
         var foto: ImageView
+        var email: TextView
 
         init{
             nome = v.findViewById(R.id.txtNome)
             telefone = v.findViewById(R.id.txtTelefone)
             foto = v.findViewById(R.id.imgFoto)
+            email = v.findViewById(R.id.txtEmail)
 
-            v.setOnLongClickListener {
-                position = adapterPosition
-                return@setOnLongClickListener false;
-            }
 
-            v.setOnCreateContextMenuListener { contextMenu, view, contextMenuInfo ->  {
-
+            v.setOnCreateContextMenuListener { contextMenu, view, contextMenuInfo ->
+                run {
+                val menuInflater:MenuInflater = MenuInflater(view.context);
+                menuInflater.inflate(R.menu.item_menu, contextMenu)
             }}
-        }
-
-        fun setPosition(position:Int){
-            this.position = position
         }
 
     }
@@ -49,10 +46,18 @@ class ListaContatosAdapter(private val contatos: List<Contato>) :
     override fun onBindViewHolder(holder: ContatoViewHolder, position: Int) {
         val nome:TextView = holder.itemView.findViewById(R.id.txtNome)
         val telefone:TextView = holder.itemView.findViewById(R.id.txtTelefone)
+        val email:TextView = holder.itemView.findViewById(R.id.txtEmail)
         val foto = holder.foto
 
-        nome.setText(contatos.get(position).nome)
-        telefone.setText(contatos.get(position).telefone)
+        nome!!.setText(contatos.get(position).nome)
+        telefone!!.setText(contatos.get(position).telefone)
+        email!!.setText(contatos.get(position).email)
+
+        holder.itemView.setOnLongClickListener { v ->
+            posicao_clicada = holder.adapterPosition
+            Log.i("Menu Position: ", "onBindViewHolder: "+ posicao_clicada)
+            false
+        }
     }
 
     override fun getItemCount(): Int {
