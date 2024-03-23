@@ -41,8 +41,11 @@ class MainActivity : AppCompatActivity() {
             val uri: Uri = Uri.parse("mailto:" +contato.email)
             val intent: Intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
+        }else if (item.itemId==R.id.menu_detalhes){
+            val intent:Intent = Intent(this, DetalhesContato::class.java)
+            intent.putExtra("contato", contato)
+            startActivity(intent)
         }
-
 
         return super.onContextItemSelected(item)
     }
