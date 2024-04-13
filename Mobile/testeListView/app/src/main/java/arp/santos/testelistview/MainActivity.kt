@@ -12,6 +12,7 @@ import arp.santos.testelistview.api.ApiClient
 import arp.santos.testelistview.dao.DaoContato
 import arp.santos.testelistview.interfaces.ContatoService
 import arp.santos.testelistview.models.Contato
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,14 +20,23 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
     lateinit var listaContatos: RecyclerView
+    lateinit var listaContatosDados:List<Contato>
+    lateinit var btCadastroContato:FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        btCadastroContato = findViewById(R.id.btCadastroContato)
+
         listaContatos = findViewById(R.id.listContatos)
 
         atualizarListaContatos()
+
+        btCadastroContato.setOnClickListener{
+            val intent = Intent(this, FormContatoActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
@@ -38,6 +48,7 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Contato>>, response: Response<List<Contato>>) {
                 if (response != null && response.body() != null) {
                     listaContatos.adapter = ListaContatoAdapter(response.body()!!)
+                    listaContatosDados = response.body()!!
                 }
             }
 
@@ -54,8 +65,7 @@ class MainActivity : AppCompatActivity() {
     override fun onContextItemSelected(item: MenuItem): Boolean {
         val adapter: ListaContatoAdapter = listaContatos.adapter as ListaContatoAdapter
         val posicao: Int = adapter.posicaoClicada
-        val dao = DaoContato()
-        val contato: Contato = dao.listaContatos().get(posicao)
+        val contato: Contato = listaContatosDados.get(posicao)
 
         if (item.itemId == R.id.menu_mapa) {
             val uri: Uri = Uri.parse("geo:0,0?q=" + contato.endereco + "&z=18")
