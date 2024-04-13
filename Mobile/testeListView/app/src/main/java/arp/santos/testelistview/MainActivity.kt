@@ -76,11 +76,6 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("contato", contato)
             startActivity(intent)
         }
-
-
-
-
-
         return super.onContextItemSelected(item)
     }
 }
