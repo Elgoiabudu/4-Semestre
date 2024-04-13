@@ -3,7 +3,6 @@ package arp.santos.testelistview
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +15,6 @@ import arp.santos.testelistview.models.Contato
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,7 +1,6 @@
 package arp.santos.testelistview.models
 
 import java.io.Serializable
-import java.io.StringBufferInputStream
 
 class Contato (
     val _id: String,
