@@ -54,13 +54,11 @@ class FormContatoActivity : AppCompatActivity() {
 
 
     private fun salvarContato() {
-        if(contato== null){ cadastrarContato()
-
-        } else{
-
+        if(contato== null){
+            cadastrarContato()
+        }else{
+            atualizarContato()
         }
-
-        cadastrarContato()
     }
 
     private fun atualizarContato(){
