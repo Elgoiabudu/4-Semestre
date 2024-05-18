@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "961081509754",
+    "project_id": "apppushnotification-e4120",
+    "storage_bucket": "apppushnotification-e4120.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:961081509754:android:58948798b044e99dc0b8c3",
+        "android_client_info": {
+          "package_name": "fernando.bonde.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqm3ZSfCuFYVhyyels71NSIZNXfm1jUKQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
