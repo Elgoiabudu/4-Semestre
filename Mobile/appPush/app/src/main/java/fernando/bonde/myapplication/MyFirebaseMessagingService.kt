@@ -1,5 +1,6 @@
 package fernando.bonde.myapplication
 
+import android.app.Notification
 import com.google.firebase.messaging.FirebaseMessagingService
 
 import android.app.PendingIntent
@@ -15,17 +16,20 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
 
-        remoteMessage.data["uri"]?.let { uri ->
+        var uri = remoteMessage.data["uri"]
+        if (uri != null) {
             showNotification(uri)
         }
     }
 
     private fun showNotification(uri: String) {
-        val intent = Intent(Intent.ACTION_VIEW).apply {
-            data = Uri.parse(uri)
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(uri)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
         val builder = NotificationCompat.Builder(this, "default_channel")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
@@ -35,8 +39,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
 
-        with(NotificationManagerCompat.from(this)) {
-            notify(1, builder.build())
-        }
+        NotificationManagerCompat.from(this)
+            .notify(1, builder.build())
+        startActivity(intent)
+
     }
 }
